@@ -43,8 +43,8 @@
   inactiveWindowBorderColour = "rgba($onSurfaceVariant11)";
 
   # Misc
-  volumeStep = 10;  # In percent
-  cursorTheme = "bibata-modern-classic";
+  volumeStep = 10; # In percent
+  cursorTheme = "Bibata-Modern-Classic";
   cursorSize = 24;
 
   # ### Keybinds ###

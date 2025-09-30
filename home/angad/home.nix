@@ -5,25 +5,34 @@
   lib,
   osConfig,
   ...
-}: let
+}:
+let
   hostname = osConfig.networking.hostName or "unknown";
-in {
+in
+{
   home.username = "angad";
   home.homeDirectory = "/home/angad";
 
   imports = [
     inputs.caelestia-shell.homeManagerModules.default
-    ../../modules/tui/cli-tools
-    ../../modules/tui/git
-    ../../modules/tui/ssh
-    ../../modules/tui/nushell
+    ../../modules/cli/cli-tools
+    ../../modules/cli/git
+    ../../modules/cli/ssh
+    ../../modules/cli/nushell
+    ../../modules/cli/neovim
     ../../modules/wm/hyprland/home.nix
     ../../modules/wm/caelestia/home.nix
-    ../../modules/tui/nvim
-    ../../modules/tui/kitty
+    ../../modules/cli/kitty
     ../../modules/gui/apps
+    ../../modules/gui/zed-editor
     ../../modules/gui/zen-browser
   ];
+
+  programs.direnv = {
+    enable = true;
+    enableNushellIntegration = true;
+    nix-direnv.enable = true;
+  };
 
   home.shellAliases = {
     rebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles";
@@ -32,6 +41,22 @@ in {
   # Host-specific environment variables
   home.sessionVariables = {
     EDITOR = "vim";
+  };
+
+  gtk = {
+    enable = true;
+    iconTheme = {
+      name = "Tela-dark";
+      package = pkgs.tela-icon-theme;
+    };
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+    cursorTheme = {
+      name = "Bibata-Modern-Classic";
+      package = pkgs.bibata-cursors;
+    };
   };
 
   home.stateVersion = "25.05";

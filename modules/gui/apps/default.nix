@@ -3,12 +3,13 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     prismlauncher
 
     # Communication
-    slack # Slack desktop client
+    slack
     signal-desktop
 
     # Media
@@ -22,6 +23,7 @@
     # Productivity
     libreoffice
     obsidian
+    proton-pass
 
     # System utilities
     gnome-system-monitor
@@ -29,9 +31,10 @@
 
     # File management
     nautilus
+    nautilus-open-any-terminal
+    gvfs
 
     # Internet
     qbittorrent
-    zed-editor
   ];
 }

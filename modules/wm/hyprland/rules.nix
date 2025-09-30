@@ -20,7 +20,7 @@ in {
     "float, class:org\\.gnome\\.Settings"
     "size 70% 80%, class:org\\.gnome\\.Settings"
     "center 1, class:org\\.gnome\\.Settings"
-    "float, class:org\\.pulseaudio\\.pavucontrolr"
+    "float, class:org\\.pulseaudio\\.pavucontrol"
     "size 60% 70%, class:org\\.pulseaudio\\.pavucontrol"
     "center 1, class:org\\.pulseaudio\\.pavucontrol"
 
@@ -53,6 +53,10 @@ in {
     "nodim, xwayland:1, title:win[0-9]+"
     "noshadow, xwayland:1, title:win[0-9]+"
     "rounding 10, xwayland:1, title:win[0-9]+"
+  ];
+
+  windowrulev2 = [
+    "tile, class:zen"
   ];
 
   # ######## Workspace rules ########

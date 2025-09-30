@@ -3,7 +3,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ../../modules/wm/hyprland
@@ -71,10 +72,16 @@
   users.users.angad = {
     isNormalUser = true;
     description = "angad";
-    extraGroups = ["networkmanager" "wheel" "docker" "input"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "input"
+    ];
     shell = pkgs.nushell;
   };
 
+  programs.nix-ld.enable = true;
   programs.hyprland.enable = true;
 
   # Enable fish shell system-wide
@@ -87,7 +94,31 @@
   nixpkgs.config.allowUnfree = true;
 
   # Enable Flake Feature
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      # Parallel downloads
+      http-connections = 128;
+
+      # Parallel builds
+      max-jobs = "auto";
+      cores = 0;
+
+      # Keep build outputs for faster rebuilds
+      keep-outputs = true;
+      keep-derivations = true;
+    };
+
+    optimise = {
+      automatic = true;
+      dates = [ "weekly" ];
+    };
+  };
+
+  boot.loader.systemd-boot.configurationLimit = 3;
 
   # Enable Docker
   virtualisation.docker.enable = true;

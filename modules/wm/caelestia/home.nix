@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     upower
   ];
@@ -9,11 +10,25 @@
     systemd = {
       enable = false; # if you prefer starting from your compositor
       target = "graphical-session.target";
-      environment = [];
+      environment = [ ];
     };
     settings = {
       bar.status = {
         showBattery = true;
+      };
+      appearance = {
+        font = {
+          family = {
+            mono = "JetBrainsMono Nerd Font";
+          };
+        };
+      };
+      general = {
+        apps = {
+          terminal = [ "kitty" ];
+          playback = [ "mpv" ];
+          explorer = [ "nautilus" ];
+        };
       };
     };
     cli = {
