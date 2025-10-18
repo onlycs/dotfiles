@@ -7,6 +7,5 @@ pkgs.mkShell {
     nixd
     nil
     lua
-    cargo
   ];
 }

@@ -1,16 +1,15 @@
-let
-  variables = import ./variables.nix;
+let variables = import ./variables.nix;
 in {
   # ######## Window rules ########
   windowrule = [
     "opacity ${toString variables.windowOpacity} override, fullscreen:0"
 
-    "opaque, class:org\\.quickshell|swappy"  # They use native transparency or we want them opaque
-    "center 1, floating:1, xwayland:0"  # Center all floating windows
+    "opaque, class:org\\.quickshell|swappy" # They use native transparency or we want them opaque
+    "center 1, floating:1, xwayland:0" # Center all floating windows
 
     # Float
     "float, class:org\\.gnome\\.FileRoller"
-    "float, class:file-roller"  # WHY IS THERE TWOOOOOOOOOOOOOOOO
+    "float, class:file-roller" # WHY IS THERE TWOOOOOOOOOOOOOOOO
     "float, class:blueman-manager"
     "float, class:com\\.github\\.GradienceTeam\\.Gradience"
     "float, class:system-config-printer"
@@ -31,7 +30,6 @@ in {
     # Dialogs
     "float, title:(Select|Open)( a)? (File|Folder)(s)?"
     "float, title:File (Operation|Upload)( Progress)?"
-    "float, title:.* Properties"
     "float, title:Export Image as PNG"
     "float, title:GIMP Crash Debug"
     "float, title:Save As"
@@ -55,9 +53,7 @@ in {
     "rounding 10, xwayland:1, title:win[0-9]+"
   ];
 
-  windowrulev2 = [
-    "tile, class:zen"
-  ];
+  windowrulev2 = [ "tile, class:zen" ];
 
   # ######## Workspace rules ########
   # workspacerule = [

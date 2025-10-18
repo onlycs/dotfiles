@@ -39,7 +39,10 @@
     ethtool
     pciutils
     usbutils
-
     killall
+
+    # Programming
+    python3
+    nodejs
   ];
 }

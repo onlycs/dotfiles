@@ -1,14 +1,5 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}:
-{
-  imports = [
-    ./hardware-configuration.nix
-    ../../modules/wm/hyprland
-  ];
+{ config, pkgs, inputs, ... }: {
+  imports = [ ./hardware-configuration.nix ../../modules/wm/hyprland ];
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -19,6 +10,15 @@
 
   networking.hostName = "theseus";
   networking.networkmanager.enable = true;
+  networking.networkmanager.dns = "systemd-resolved";
+  services.resolved = {
+    enable = true;
+    domains = [ "fios-router.home" ];
+    extraConfig = ''
+      DNS=192.168.1.2
+    '';
+  };
+  networking.resolvconf.enable = false;
 
   # Time zone
   time.timeZone = "America/New_York";
@@ -27,7 +27,16 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Enable hardware graphics acceleration
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      vulkan-loader
+      vulkan-tools
+      vulkan-headers
+      vulkan-validation-layers
+      mesa
+    ];
+  };
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -37,16 +46,10 @@
   services.fprintd.enable = true;
 
   # Enable the X11 windowing system
-  services.xserver.enable = true;
+  services.xserver.enable = false;
 
   # Firmware updates
   services.fwupd.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
 
   # Enable CUPS to print documents
   services.printing.enable = true;
@@ -68,21 +71,28 @@
   # Power
   services.upower.enable = true;
 
+  # Flatpak
+  services.flatpak.enable = true;
+
   # Define a user account
   users.users.angad = {
     isNormalUser = true;
     description = "angad";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "docker"
-      "input"
-    ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "input" ];
     shell = pkgs.nushell;
   };
 
   programs.nix-ld.enable = true;
   programs.hyprland.enable = true;
+
+  services.gnome.gnome-keyring.enable = true;
+  programs.seahorse.enable = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
 
   # Enable fish shell system-wide
   # programs.nushell.enable = true;
@@ -96,10 +106,7 @@
   # Enable Flake Feature
   nix = {
     settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
+      experimental-features = [ "nix-command" "flakes" ];
       # Parallel downloads
       http-connections = 128;
 
@@ -128,12 +135,18 @@
     wget
     vim
     nushell
+
+    vulkan-loader
+    vulkan-tools
+    vulkan-headers
+    vulkan-validation-layers
+    mesa
+
+    nfs-utils
+    polkit_gnome
   ];
 
-  environment.shells = with pkgs; [
-    bashInteractive
-    nushell
-  ];
+  environment.shells = with pkgs; [ bashInteractive nushell ];
 
   security.wrappers.gsr-kms-server = {
     owner = "root";
@@ -141,6 +154,8 @@
     capabilities = "cap_sys_admin+ep";
     source = "${pkgs.gpu-screen-recorder}/bin/gsr-kms-server";
   };
+
+  security.polkit.enable = true;
 
   system.stateVersion = "25.05";
 }

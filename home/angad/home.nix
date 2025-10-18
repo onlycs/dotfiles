@@ -1,15 +1,6 @@
-{
-  config,
-  pkgs,
-  inputs,
-  lib,
-  osConfig,
-  ...
-}:
-let
-  hostname = osConfig.networking.hostName or "unknown";
-in
-{
+{ config, pkgs, inputs, lib, osConfig, ... }:
+let hostname = osConfig.networking.hostName or "unknown";
+in {
   home.username = "angad";
   home.homeDirectory = "/home/angad";
 
@@ -26,6 +17,7 @@ in
     ../../modules/gui/apps
     ../../modules/gui/zed-editor
     ../../modules/gui/zen-browser
+    ../../modules/wm/easyeffects/home.nix
   ];
 
   programs.direnv = {
@@ -39,9 +31,7 @@ in
   };
 
   # Host-specific environment variables
-  home.sessionVariables = {
-    EDITOR = "vim";
-  };
+  home.sessionVariables = { EDITOR = "vim"; };
 
   gtk = {
     enable = true;
@@ -58,6 +48,8 @@ in
       package = pkgs.bibata-cursors;
     };
   };
+
+  home.packages = with pkgs; [ gcr ];
 
   home.stateVersion = "25.05";
 }

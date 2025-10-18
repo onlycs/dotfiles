@@ -1,5 +1,4 @@
-let
-  variables = import ./variables.nix;
+let variables = import ./variables.nix;
 in {
   input = {
     kb_layout = "us";
@@ -8,6 +7,8 @@ in {
     repeat_rate = 35;
 
     focus_on_close = 1;
+    sensitivity = -0.25;
+    accel_profile = "flat";
 
     touchpad = {
       natural_scroll = true;
@@ -17,11 +18,12 @@ in {
     };
   };
 
-  binds = {
-    scroll_event_delay = 0;
+  device = {
+    name = "type:touchpad";
+    sensitivity = 0.25;
   };
 
-  cursor = {
-    hotspot_padding = 1;
-  };
+  binds = { scroll_event_delay = 0; };
+
+  cursor = { hotspot_padding = 1; };
 }

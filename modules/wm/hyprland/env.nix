@@ -1,5 +1,6 @@
-let
-  variables = import ./variables.nix;
+{ pkgs, ... }:
+
+let variables = import ./variables.nix;
 in [
   # ############# Themes #############
   "QT_QPA_PLATFORMTHEME, qt6ct"
@@ -7,6 +8,7 @@ in [
   "QT_AUTO_SCREEN_SCALE_FACTOR, 1"
   "XCURSOR_THEME, ${toString variables.cursorTheme}"
   "XCURSOR_SIZE, ${toString variables.cursorSize}"
+  "XCURSOR_PATH, ${pkgs.bibata-cursors}/share/icons"
 
   # ######## Toolkit backends ########
   "GDK_BACKEND, wayland,x11"
@@ -14,6 +16,7 @@ in [
   "SDL_VIDEODRIVER, wayland,x11,windows"
   "CLUTTER_BACKEND, wayland"
   "ELECTRON_OZONE_PLATFORM_HINT, auto"
+  "STEAM_FORCE_DESKTOPUI_SCALING, 1.25"
 
   # ####### XDG specifications #######
   "XDG_CURRENT_DESKTOP, Hyprland"
