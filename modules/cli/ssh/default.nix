@@ -12,6 +12,13 @@
         identityFile = "~/.ssh/id_ed25519";
         identitiesOnly = true;
       };
+
+      "h2o2" = {
+        hostname = "h2o2";
+        user = "onlycs";
+        proxyJump = "launchpad";
+        identityFile = "~/.ssh/id_ed25519";
+      };
     };
 
     # Additional SSH configuration

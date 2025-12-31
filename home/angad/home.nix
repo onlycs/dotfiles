@@ -1,6 +1,15 @@
-{ config, pkgs, inputs, lib, osConfig, ... }:
-let hostname = osConfig.networking.hostName or "unknown";
-in {
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  osConfig,
+  ...
+}:
+let
+  hostname = osConfig.networking.hostName or "unknown";
+in
+{
   home.username = "angad";
   home.homeDirectory = "/home/angad";
 
@@ -31,7 +40,9 @@ in {
   };
 
   # Host-specific environment variables
-  home.sessionVariables = { EDITOR = "vim"; };
+  home.sessionVariables = {
+    EDITOR = "vim";
+  };
 
   gtk = {
     enable = true;
@@ -47,6 +58,12 @@ in {
       name = "Bibata-Modern-Classic";
       package = pkgs.bibata-cursors;
     };
+    gtk4.extraConfig.Settings = ''
+      gtk-application-prefer-dark-themes=1
+    '';
+    gtk3.extraConfig.Settings = ''
+      gtk-application-prefer-dark-themes=1
+    '';
   };
 
   home.packages = with pkgs; [ gcr ];

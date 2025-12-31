@@ -1,5 +1,14 @@
-{ config, pkgs, inputs, ... }: {
-  imports = [ ./hardware-configuration.nix ../../modules/wm/hyprland ];
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  imports = [
+    ./hardware-configuration.nix
+    ../../modules/wm/hyprland
+  ];
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -11,6 +20,7 @@
   networking.hostName = "theseus";
   networking.networkmanager.enable = true;
   networking.networkmanager.dns = "systemd-resolved";
+  networking.firewall.enable = false;
   services.resolved = {
     enable = true;
     domains = [ "fios-router.home" ];
@@ -39,7 +49,15 @@
   };
 
   # Enable bluetooth
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+      };
+    };
+  };
   services.blueman.enable = true;
 
   # Enable fingerprint support
@@ -62,6 +80,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.enable = true;
   };
 
   # Enable fingerprint authentication for sudo and other services
@@ -78,15 +97,26 @@
   users.users.angad = {
     isNormalUser = true;
     description = "angad";
-    extraGroups = [ "networkmanager" "wheel" "docker" "input" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "input"
+    ];
     shell = pkgs.nushell;
   };
 
   programs.nix-ld.enable = true;
   programs.hyprland.enable = true;
 
+  # Gnome etc
   services.gnome.gnome-keyring.enable = true;
   programs.seahorse.enable = true;
+  programs.dconf.enable = true;
+  services.gvfs.enable = true;
+  services.udev.packages = with pkgs; [ gnome-settings-daemon ];
+
+  # Enable Steam
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -94,19 +124,16 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
-  # Enable fish shell system-wide
-  # programs.nushell.enable = true;
-
-  # Install firefox
-  # programs.zen-browser.enable = true;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # Enable Flake Feature
   nix = {
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       # Parallel downloads
       http-connections = 128;
 
@@ -127,6 +154,17 @@
 
   boot.loader.systemd-boot.configurationLimit = 3;
 
+  systemd.services.fw-fanctrl = {
+    enable = true;
+    description = "Framework Laptop Fan Control";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.fw-fanctrl}/bin/fw-fanctrl run";
+      Restart = "on-failure";
+    };
+  };
+
   # Enable Docker
   virtualisation.docker.enable = true;
 
@@ -146,7 +184,10 @@
     polkit_gnome
   ];
 
-  environment.shells = with pkgs; [ bashInteractive nushell ];
+  environment.shells = with pkgs; [
+    bashInteractive
+    nushell
+  ];
 
   security.wrappers.gsr-kms-server = {
     owner = "root";
@@ -157,5 +198,5 @@
 
   security.polkit.enable = true;
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }

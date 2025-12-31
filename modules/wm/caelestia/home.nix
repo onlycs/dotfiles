@@ -1,8 +1,5 @@
-{ pkgs, ... }:
-{
-  home.packages = with pkgs; [
-    upower
-  ];
+{ pkgs, ... }: {
+  home.packages = with pkgs; [ upower ];
 
   programs.caelestia = {
     enable = true;
@@ -13,15 +10,9 @@
       environment = [ ];
     };
     settings = {
-      bar.status = {
-        showBattery = true;
-      };
+      bar.status = { showBattery = true; };
       appearance = {
-        font = {
-          family = {
-            mono = "JetBrainsMono Nerd Font";
-          };
-        };
+        font = { family = { mono = "JetBrainsMono Nerd Font"; }; };
       };
       general = {
         apps = {
@@ -33,6 +24,17 @@
     };
     cli = {
       enable = true; # Also add caelestia-cli to path
+      settings = {
+        resizer = {
+          rules = [{
+            name = "__DISABLE";
+            matchType = "class";
+            width = "0%";
+            height = "0%";
+            actions = [ "tile" ];
+          }];
+        };
+      };
     };
   };
 }

@@ -1,21 +1,31 @@
-{ lib, ... }: let
+{ lib, ... }:
+let
   variables = import ./variables.nix;
 
   wsaction = ../../../scripts/wsaction.nu;
 
-  toWorkspace = map (n:
-    "${variables.kbGoToWs}, ${toString n}, exec, nu ${wsaction} workspace ${toString (if n == 0 then 10 else n)}"
+  toWorkspace = map (
+    n:
+    "${variables.kbGoToWs}, ${toString n}, exec, nu ${wsaction} workspace ${
+      toString (if n == 0 then 10 else n)
+    }"
   ) (lib.lists.range 0 9);
 
-  winToWorkspace = map (n:
-    "${variables.kbMoveWinToWs}, ${toString n}, exec, nu ${wsaction} movetoworkspacesilent ${toString (if n == 0 then 10 else n)}"
+  winToWorkspace = map (
+    n:
+    "${variables.kbMoveWinToWs}, ${toString n}, exec, nu ${wsaction} movetoworkspacesilent ${
+      toString (if n == 0 then 10 else n)
+    }"
   ) (lib.lists.range 0 9);
 
-  workspaceBinds = toWorkspace ++ winToWorkspace ++ [
-    "${variables.kbPrevWs}, workspace, -1"
-    "${variables.kbNextWs}, workspace, +1"
-    "${variables.kbToggleSpecialWs}, exec, caelestia toggle specialws"
-  ];
+  workspaceBinds =
+    toWorkspace
+    ++ winToWorkspace
+    ++ [
+      "${variables.kbPrevWs}, workspace, -1"
+      "${variables.kbNextWs}, workspace, +1"
+      "${variables.kbToggleSpecialWs}, exec, caelestia toggle specialws"
+    ];
 
   windowMouseBinds = [
     "Super, mouse:272, movewindow"
@@ -42,7 +52,8 @@
     "Super, V, exec, pkill fuzzel || caelestia clipboard"
     "Super, Period, exec, pkill fuzzel || caelestia emoji -p"
   ];
-in {
+in
+{
   extraConfig = ''
     # Execute dispatch and set submap first
     exec = hyprctl dispatch submap global
@@ -60,8 +71,7 @@ in {
     bindin = Super, mouse_down, global, caelestia:launcherInterrupt
 
     # bindl (locked bindings)
-    bindl = ${variables.kbRestoreLock}, exec, caelestia shell -d
-    bindl = ${variables.kbRestoreLock}, global, caelestia:lock
+    bindl = ${variables.kbLock}, global, caelestia:lock
     bindl = , XF86MonBrightnessUp, global, caelestia:brightnessUp
     bindl = , XF86MonBrightnessDown, global, caelestia:brightnessDown
     bindl = Ctrl+Super, Space, global, caelestia:mediaToggle
@@ -81,7 +91,9 @@ in {
     bindl = Super, C, exec, hyprpicker -a
 
     # Regular bind entries - you'll need to expand these arrays manually
-    ${lib.concatMapStrings (bind: "bind = ${bind}\n") (windowBinds ++ workspaceBinds ++ apps ++ utilities)}
+    ${lib.concatMapStrings (bind: "bind = ${bind}\n") (
+      windowBinds ++ workspaceBinds ++ apps ++ utilities
+    )}
 
     # bindm (mouse bindings)
     ${lib.concatMapStrings (bind: "bindm = ${bind}\n") windowMouseBinds}

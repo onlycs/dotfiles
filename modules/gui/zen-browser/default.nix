@@ -1,8 +1,9 @@
 { config, pkgs, inputs, lib, ... }:
 
 {
-  home.packages = [ inputs.zen-browser.packages.${pkgs.system}.zen-browser ];
-  
+  imports = [ inputs.zen-browser.homeModules.beta ];
+  programs.zen-browser.enable = true;
+
   # Declaratively manage CSS files for Zen Browser
   # This will apply to all Zen Browser profiles
   home.file = {
@@ -16,3 +17,4 @@
     };
   };
 }
+

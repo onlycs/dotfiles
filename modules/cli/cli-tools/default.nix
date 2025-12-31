@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     # System info
     neofetch
@@ -40,9 +41,17 @@
     pciutils
     usbutils
     killall
+    htop
 
     # Programming
     python3
     nodejs
+    qmk
+    qmk-udev-rules
+
+    framework-tool
+    framework-tool-tui
+    fw-fanctrl
+    fw-ectool
   ];
 }

@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   home.packages = with pkgs; [
     prismlauncher
 
@@ -11,6 +17,9 @@
     mpv
     tidal-hifi
 
+    lsfg-vk
+    lsfg-vk-ui
+
     # Graphics & Design
     gimp
     inkscape
@@ -21,18 +30,22 @@
     proton-pass
 
     # System utilities
-    gnome-system-monitor
+    mission-center
     gnome-disk-utility
+    gnome-text-editor
 
     # File management
     nautilus
     nautilus-open-any-terminal
-    gvfs
-    jetbrains.idea-ultimate
+    sushi
+    jetbrains.idea
 
     kdePackages.kdenlive
 
     # Internet
     qbittorrent
+
+    helvum
+    pwvucontrol
   ];
 }
