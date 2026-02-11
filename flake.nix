@@ -23,10 +23,19 @@
       url = "github:caelestia-dots/shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
+
+    lsfg-vk-flake = {
+      url = "github:pabloaul/lsfg-vk-flake/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    frc-nix.url = "github:frc4451/frc-nix";
   };
 
   outputs =
-    inputs@{ nixpkgs, home-manager, ... }:
+    inputs@{ nixpkgs, home-manager, vscode-server, lsfg-vk-flake, frc-nix, ... }:
     {
       nixosConfigurations = {
         theseus = nixpkgs.lib.nixosSystem {
@@ -34,11 +43,14 @@
           specialArgs = { inherit inputs; };
           modules = [
             inputs.nixos-hardware.nixosModules.framework-16-7040-amd
+            vscode-server.nixosModules.default
+            lsfg-vk-flake.nixosModules.default
             (
               { pkgs, ... }:
               {
                 nixpkgs.overlays = [
                   (import ./overlays)
+                  frc-nix.overlays.default
                   (final: prev: {
                     # Create a fixed app2unit
                     app2unit-fixed = prev.app2unit.overrideAttrs (oldAttrs: {

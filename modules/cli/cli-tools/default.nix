@@ -28,6 +28,8 @@
     gawk
     zstd
     gnupg
+    system-config-printer
+    cups
 
     # System call monitoring
     strace

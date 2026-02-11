@@ -1,10 +1,11 @@
 let
   variables = import ./variables.nix;
-in {
-  #col.border_active = variables.activeWindowBorderColour;
-  #col.border_inactive = variables.inactiveWindowBorderColour;
-  #col.border_locked_active = variables.activeWindowBorderColour;
-  #col.border_locked_inactive = variables.inactiveWindowBorderColour;
+in
+{
+  "col.border_active" = variables.activeWindowBorderColour;
+  "col.border_inactive" = variables.inactiveWindowBorderColour;
+  "col.border_locked_active" = variables.activeWindowBorderColour;
+  "col.border_locked_inactive" = variables.inactiveWindowBorderColour;
 
   groupbar = {
     font_family = "JetBrainsMono Nerd Font";
@@ -17,9 +18,9 @@ in {
     gaps_in = 3;
     gaps_out = 3;
     text_color = "rgb($onPrimary)";
-    #col.active = "rgba($primaryd4)";
-    #col.inactive = "rgba($outlined4)";
-    #col.locked_active = "rgba($primaryd4)";
-    #col.locked_inactive = "rgba($secondaryd4)";
+    "col.active" = "rgba($primaryd4)";
+    "col.inactive" = "rgba($outlined4)";
+    "col.locked_active" = "rgba($primaryd4)";
+    "col.locked_inactive" = "rgba($secondaryd4)";
   };
 }

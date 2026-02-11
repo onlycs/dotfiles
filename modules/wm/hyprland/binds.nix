@@ -46,11 +46,13 @@ let
     "${variables.kbBrowser}, exec, ${variables.browser}"
     "${variables.kbEditor}, exec, ${variables.editor}"
     "${variables.kbFileExplorer}, exec, ${variables.fileExplorer}"
+    "Super, I, exec, XDG_CURRENT_DESKTOP=gnome gnome-control-center"
   ];
 
   utilities = [
     "Super, V, exec, pkill fuzzel || caelestia clipboard"
     "Super, Period, exec, pkill fuzzel || caelestia emoji -p"
+    "Super, Print, exec, grim -g \"$(slurp)\" ~/.tmp.png && tesseract ~/.tmp.png - | wl-copy && rm ~/.tmp.png"
   ];
 in
 {

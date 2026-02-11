@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [ upower ];
 
   programs.caelestia = {
@@ -10,9 +11,15 @@
       environment = [ ];
     };
     settings = {
-      bar.status = { showBattery = true; };
+      bar.status = {
+        showBattery = true;
+      };
       appearance = {
-        font = { family = { mono = "JetBrainsMono Nerd Font"; }; };
+        font = {
+          family = {
+            mono = "JetBrainsMono Nerd Font";
+          };
+        };
       };
       general = {
         apps = {
@@ -26,13 +33,18 @@
       enable = true; # Also add caelestia-cli to path
       settings = {
         resizer = {
-          rules = [{
-            name = "__DISABLE";
-            matchType = "class";
-            width = "0%";
-            height = "0%";
-            actions = [ "tile" ];
-          }];
+          rules = [
+            {
+              name = "(Bitwarden";
+              matchType = "titleContains";
+              width = "20%";
+              height = "54%";
+              actions = [
+                "float"
+                "center"
+              ];
+            }
+          ];
         };
       };
     };

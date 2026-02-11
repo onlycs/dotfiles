@@ -1,5 +1,7 @@
-let variables = import ./variables.nix;
-in {
+let
+  variables = import ./variables.nix;
+in
+{
   # ######## Window rules ########
   windowrule = [
     "opacity ${toString variables.windowOpacity} override, fullscreen:0"
@@ -52,8 +54,6 @@ in {
     "noshadow, xwayland:1, title:win[0-9]+"
     "rounding 10, xwayland:1, title:win[0-9]+"
   ];
-
-  windowrulev2 = [ "tile, class:zen" ];
 
   # ######## Workspace rules ########
   # workspacerule = [

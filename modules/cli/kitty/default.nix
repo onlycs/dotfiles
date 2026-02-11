@@ -1,42 +1,118 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ ... }:
 let
   material3 = {
 
     type = "dark";
-    primary = "#7dda9b";
-    onPrimary = "#00391c";
-    primaryContainer = "#00522b";
-    onPrimaryContainer = "#98f7b5";
-    secondary = "#b6ccb9";
-    onSecondary = "#223527";
-    secondaryContainer = "#384b3c";
-    onSecondaryContainer = "#d2e8d4";
-    tertiary = "#a2ceda";
-    onTertiary = "#023640";
-    tertiaryContainer = "#214c57";
-    onTertiaryContainer = "#beeaf6";
+    primary_paletteKeyColor = "#44835d";
+    secondary_paletteKeyColor = "#677c6c";
+    tertiary_paletteKeyColor = "#547d8a";
+    neutral_paletteKeyColor = "#737872";
+    neutral_variant_paletteKeyColor = "#717971";
+    background = "#0f1511";
+    onBackground = "#dfe4dd";
+    surface = "#0f1511";
+    surfaceDim = "#0f1511";
+    surfaceBright = "#353b36";
+    surfaceContainerLowest = "#0a0f0c";
+    surfaceContainerLow = "#181d19";
+    surfaceContainer = "#1c211d";
+    surfaceContainerHigh = "#262b27";
+    surfaceContainerHighest = "#313631";
+    onSurface = "#dfe4dd";
+    surfaceVariant = "#414942";
+    onSurfaceVariant = "#c0c9c0";
+    inverseSurface = "#dfe4dd";
+    inverseOnSurface = "#2c322d";
+    outline = "#8a938b";
+    outlineVariant = "#414942";
+    shadow = "#000000";
+    scrim = "#000000";
+    surfaceTint = "#94d5a9";
+    primary = "#94d5a9";
+    onPrimary = "#00391f";
+    primaryContainer = "#0c5130";
+    onPrimaryContainer = "#aff2c4";
+    inversePrimary = "#2b6a46";
+    secondary = "#b5ccba";
+    onSecondary = "#213528";
+    secondaryContainer = "#3a4e3f";
+    onSecondaryContainer = "#d1e8d5";
+    tertiary = "#a3cddb";
+    onTertiary = "#033641";
+    tertiaryContainer = "#6e97a4";
+    onTertiaryContainer = "#000000";
     error = "#ffb4ab";
     onError = "#690005";
     errorContainer = "#93000a";
     onErrorContainer = "#ffdad6";
-    background = "#191c19";
-    onBackground = "#e1e3de";
-    surface = "#191c19";
-    onSurface = "#e1e3de";
-    surfaceVariant = "#414942";
-    onSurfaceVariant = "#c0c9bf";
-    outline = "#8b938a";
-    outlineVariant = "#414942";
-    shadow = "#000000";
-    scrim = "#000000";
-    inverseSurface = "#e1e3de";
-    inverseOnSurface = "#2e312e";
-    inversePrimary = "#006d3b";
+    primaryFixed = "#aff2c4";
+    primaryFixedDim = "#94d5a9";
+    onPrimaryFixed = "#002110";
+    onPrimaryFixedVariant = "#0c5130";
+    secondaryFixed = "#d1e8d5";
+    secondaryFixedDim = "#b5ccba";
+    onSecondaryFixed = "#0c1f14";
+    onSecondaryFixedVariant = "#374b3d";
+    tertiaryFixed = "#bfe9f8";
+    tertiaryFixedDim = "#a3cddb";
+    onTertiaryFixed = "#001f27";
+    onTertiaryFixedVariant = "#214c58";
+    term0 = "#343433";
+    term1 = "#769e00";
+    term2 = "#89df90";
+    term3 = "#b0f89e";
+    term4 = "#7eb69b";
+    term5 = "#c6a844";
+    term6 = "#97d8a9";
+    term7 = "#d2dbca";
+    term8 = "#9ea598";
+    term9 = "#85b900";
+    term10 = "#8cf498";
+    term11 = "#d8ffcb";
+    term12 = "#a9c8b3";
+    term13 = "#cec06b";
+    term14 = "#a3ecb4";
+    term15 = "#ffffff";
+    rosewater = "#f1f3e5";
+    flamingo = "#e3e4c5";
+    pink = "#bae2ff";
+    mauve = "#5bd0df";
+    red = "#c5b542";
+    maroon = "#c6c177";
+    peach = "#b6d89d";
+    yellow = "#def9d5";
+    green = "#a5f1ba";
+    teal = "#abeec9";
+    sky = "#9eebc9";
+    sapphire = "#7cd8b9";
+    blue = "#60cfb7";
+    lavender = "#87dccb";
+    klink = "#06997d";
+    klinkSelection = "#04997d";
+    kvisited = "#008ca9";
+    kvisitedSelection = "#008ca9";
+    knegative = "#838f00";
+    knegativeSelection = "#838f00";
+    kneutral = "#6dbe37";
+    kneutralSelection = "#6cbe37";
+    kpositive = "#2fc076";
+    kpositiveSelection = "#2ec077";
+    text = "#dfe4dd";
+    subtext1 = "#c0c9c0";
+    subtext0 = "#8a938b";
+    overlay2 = "#788079";
+    overlay1 = "#656d66";
+    overlay0 = "#545b55";
+    surface2 = "#434a45";
+    surface1 = "#323934";
+    surface0 = "#212722";
+    base = "#0f1511";
+    mantle = "#0f1511";
+    crust = "#0e1410";
+    success = "#B5CCBA";
+    onSuccess = "#213528";
+    successContainer = "#374B3E";
+    onSuccessContainer = "#D1E9D6";
   };
 in
 {
@@ -89,36 +165,36 @@ in
 
       # Terminal Colors
       # Black
-      color0 = material3.surface;
-      color8 = material3.surfaceVariant;
+      color0 = material3.term0;
+      color8 = material3.term8;
 
       # Red
-      color1 = material3.error;
-      color9 = material3.onErrorContainer;
+      color1 = material3.term1;
+      color9 = material3.term9;
 
       # Green
-      color2 = material3.primary;
-      color10 = material3.onPrimaryContainer;
+      color2 = material3.term2;
+      color10 = material3.term10;
 
       # Yellow
-      color3 = "#A7A711";
-      color11 = "#E8E822";
+      color3 = material3.term3;
+      color11 = material3.term11;
 
       # Blue
-      color4 = "#2C36B3";
-      color12 = "#0891b2";
+      color4 = material3.term4;
+      color12 = material3.term12;
 
       # Magenta
-      color5 = "#d8709a";
-      color13 = "#c084fc";
+      color5 = material3.term5;
+      color13 = material3.term13;
 
       # Cyan
-      color6 = material3.tertiary;
-      color14 = material3.onTertiaryContainer;
+      color6 = material3.term6;
+      color14 = material3.term14;
 
       # White
-      color7 = material3.onBackground;
-      color15 = material3.inverseOnSurface;
+      color7 = material3.term7;
+      color15 = material3.term15;
 
       # Mouse
       open_url_with = "default";

@@ -1,7 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
   ...
 }:
 {
@@ -17,9 +15,6 @@
     mpv
     tidal-hifi
 
-    lsfg-vk
-    lsfg-vk-ui
-
     # Graphics & Design
     gimp
     inkscape
@@ -33,19 +28,25 @@
     mission-center
     gnome-disk-utility
     gnome-text-editor
+    gnome-control-center
 
     # File management
     nautilus
     nautilus-open-any-terminal
     sushi
-    jetbrains.idea
 
-    kdePackages.kdenlive
+    # editor
+    jetbrains.idea
+    vscode
 
     # Internet
     qbittorrent
+    kdePackages.kdenlive
 
     helvum
     pwvucontrol
+
+    choreo
+    elastic-dashboard
   ];
 }

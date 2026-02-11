@@ -1,9 +1,6 @@
 {
-  config,
   pkgs,
-  inputs,
   lib,
-  osConfig,
   ...
 }:
 let
@@ -24,6 +21,10 @@ in
     wl-clipboard
     caelestia-shell-with-cli
     bibata-cursors
+    cliphist
+    tesseract
+    grim
+    slurp
   ];
 
   wayland.windowManager.hyprland = {
@@ -33,63 +34,60 @@ in
 
     systemd.variables = [ "--all" ];
 
-    settings =
-      colors
-      // {
-        monitor = [
-          "eDP-1, highres, 0x0, 1.25"
-          "DP-3, 1920x1080@60, 0x-1080, 1"
-        ];
+    settings = {
+      source = "~/.config/hypr/scheme/current.conf";
 
-        general = {
-          layout = "dwindle";
-          allow_tearing = false; # Allows `immediate` window rule to work
-          gaps_workspaces = variables.workspaceGaps;
-          gaps_in = variables.windowGapsIn;
-          gaps_out = variables.windowGapsOut;
-          border_size = variables.windowBorderSize;
-          #col = {
-          #  active_border = variables.activeWindowBorderColour;
-          #  inactive_border = variables.inactiveWindowBorderColour;
-          #};
-        };
+      monitor = [
+        # "eDP-1, highres, 0x0, 1.25"
+        "eDP-2, highres, 0x0, 1.25"
+        "DP-3, 1920x1080@60, 0x-1080, 1"
+      ];
 
-        dwindle = {
-          preserve_split = true;
-          smart_split = false;
-          smart_resizing = true;
-        };
+      general = {
+        layout = "dwindle";
+        allow_tearing = false; # Allows `immediate` window rule to work
+        gaps_workspaces = variables.workspaceGaps;
+        gaps_in = variables.windowGapsIn;
+        gaps_out = variables.windowGapsOut;
+        border_size = variables.windowBorderSize;
+      };
 
-        misc = {
-          vfr = false;
-          vrr = false;
-          animate_manual_resizes = false;
-          animate_mouse_windowdragging = false;
-          disable_hyprland_logo = true;
-          force_default_wallpaper = 0;
-          new_window_takes_over_fullscreen = 2;
-          allow_session_lock_restore = true;
-          middle_click_paste = false;
-          focus_on_activate = true;
-          #session_lock_xray = true;
-          mouse_move_enables_dpms = true;
-          key_press_enables_dpms = true;
-          background_color = "rgb($surfaceContainer)";
-        };
+      dwindle = {
+        preserve_split = true;
+        smart_split = false;
+        smart_resizing = true;
+      };
 
-        xwayland = {
-          force_zero_scaling = true;
-        };
+      misc = {
+        vfr = false;
+        vrr = false;
+        animate_manual_resizes = false;
+        animate_mouse_windowdragging = false;
+        disable_hyprland_logo = true;
+        force_default_wallpaper = 0;
+        new_window_takes_over_fullscreen = 2;
+        allow_session_lock_restore = true;
+        middle_click_paste = false;
+        focus_on_activate = true;
+        #session_lock_xray = true;
+        mouse_move_enables_dpms = true;
+        key_press_enables_dpms = true;
+        background_color = "rgb($surfaceContainer)";
+      };
 
-        animations = animations;
-        decoration = decoration;
-        env = env;
-        gestures = gestures;
-        group = group;
-      }
-      // execs
-      // input
-      // rules;
+      xwayland = {
+        force_zero_scaling = true;
+      };
+
+      animations = animations;
+      decoration = decoration;
+      env = env;
+      gestures = gestures;
+      group = group;
+    }
+    // execs
+    // input
+    // rules;
 
     extraConfig = binds.extraConfig;
   };

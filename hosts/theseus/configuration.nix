@@ -29,6 +29,7 @@
     '';
   };
   networking.resolvconf.enable = false;
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   # Time zone
   time.timeZone = "America/New_York";
@@ -70,7 +71,10 @@
   services.fwupd.enable = true;
 
   # Enable CUPS to print documents
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [ brlaser ];
+  };
 
   # Enable sound with pipewire
   services.pulseaudio.enable = false;
@@ -168,6 +172,11 @@
   # Enable Docker
   virtualisation.docker.enable = true;
 
+  # Remote access
+  services.openssh.enable = true;
+  networking.wg-quick.interfaces.wg0.configFile = "/home/angad/.dotfiles/angad.theseus.conf";
+  services.vscode-server.enable = true;
+
   # System packages
   environment.systemPackages = with pkgs; [
     wget
@@ -182,12 +191,21 @@
 
     nfs-utils
     polkit_gnome
+    bitwarden-desktop
   ];
 
   environment.shells = with pkgs; [
     bashInteractive
     nushell
   ];
+
+  services.lsfg-vk = {
+    enable = true;
+    ui.enable = true;
+  };
+
+  # install kde plasma (just the de, not all the apps)
+  services.desktopManager.plasma6.enable = true;
 
   security.wrappers.gsr-kms-server = {
     owner = "root";
