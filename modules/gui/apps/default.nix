@@ -5,6 +5,7 @@
 {
   home.packages = with pkgs; [
     prismlauncher
+    quickshell
 
     # Communication
     slack
@@ -48,5 +49,7 @@
 
     choreo
     elastic-dashboard
+
+    loupe
   ];
 }

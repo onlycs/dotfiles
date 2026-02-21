@@ -1,8 +1,6 @@
 {
-  config,
   pkgs,
   inputs,
-  lib,
   osConfig,
   ...
 }:
@@ -14,14 +12,14 @@ in
   home.homeDirectory = "/home/angad";
 
   imports = [
-    inputs.caelestia-shell.homeManagerModules.default
+    inputs.noctalia.homeModules.default
     ../../modules/cli/cli-tools
     ../../modules/cli/git
     ../../modules/cli/ssh
     ../../modules/cli/nushell
     ../../modules/cli/neovim
     ../../modules/wm/hyprland/home.nix
-    ../../modules/wm/caelestia/home.nix
+    ../../modules/wm/noctalia/home.nix
     ../../modules/cli/kitty
     ../../modules/gui/apps
     ../../modules/gui/zed-editor

@@ -1,6 +1,4 @@
-let
-  variables = import ./variables.nix;
-in {
+{
   workspace_swipe_distance = 700;
   workspace_swipe_cancel_ratio = 0.15;
   workspace_swipe_min_speed_to_force = 5;

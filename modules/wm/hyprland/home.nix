@@ -6,7 +6,6 @@
 let
   animations = import ./animations.nix;
   binds = import ./binds.nix { inherit lib; };
-  colors = import ./colors.nix;
   decoration = import ./decoration.nix;
   env = import ./env.nix { inherit pkgs; };
   execs = import ./execs.nix { inherit pkgs; };
@@ -14,17 +13,15 @@ let
   group = import ./group.nix;
   input = import ./input.nix;
   rules = import ./rules.nix;
-  variables = import ./variables.nix;
 in
 {
   home.packages = with pkgs; [
     wl-clipboard
-    caelestia-shell-with-cli
     bibata-cursors
     cliphist
     tesseract
-    grim
-    slurp
+    hyprshot
+    hyprpicker
   ];
 
   wayland.windowManager.hyprland = {
@@ -46,10 +43,10 @@ in
       general = {
         layout = "dwindle";
         allow_tearing = false; # Allows `immediate` window rule to work
-        gaps_workspaces = variables.workspaceGaps;
-        gaps_in = variables.windowGapsIn;
-        gaps_out = variables.windowGapsOut;
-        border_size = variables.windowBorderSize;
+        gaps_workspaces = 20;
+        gaps_in = 10;
+        gaps_out = 20;
+        border_size = 2;
       };
 
       dwindle = {
@@ -65,7 +62,6 @@ in
         animate_mouse_windowdragging = false;
         disable_hyprland_logo = true;
         force_default_wallpaper = 0;
-        new_window_takes_over_fullscreen = 2;
         allow_session_lock_restore = true;
         middle_click_paste = false;
         focus_on_activate = true;

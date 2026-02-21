@@ -1,58 +1,42 @@
 { lib, ... }:
 let
-  variables = import ./variables.nix;
+  dispatchFile = ../../../scripts/wsaction.nu;
+  ipc = "noctalia-shell ipc call";
 
-  wsaction = ../../../scripts/wsaction.nu;
+  fix0 = n: if n == 0 then 10 else n;
+  dispatch = s: n: "nu ${dispatchFile} ${s} ${toString (fix0 n)}";
+  keys = lib.lists.range 0 9;
+  hyprshot = "hyprshot -m region -s";
 
-  toWorkspace = map (
-    n:
-    "${variables.kbGoToWs}, ${toString n}, exec, nu ${wsaction} workspace ${
-      toString (if n == 0 then 10 else n)
-    }"
-  ) (lib.lists.range 0 9);
+  wsSwitch = map (n: "Super, ${toString n}, exec, ${dispatch "switch" n}") keys;
+  wsMove = map (n: "Super+Alt, ${toString n}, exec, ${dispatch "move" n}") keys;
 
-  winToWorkspace = map (
-    n:
-    "${variables.kbMoveWinToWs}, ${toString n}, exec, nu ${wsaction} movetoworkspacesilent ${
-      toString (if n == 0 then 10 else n)
-    }"
-  ) (lib.lists.range 0 9);
-
-  workspaceBinds =
-    toWorkspace
-    ++ winToWorkspace
-    ++ [
-      "${variables.kbPrevWs}, workspace, -1"
-      "${variables.kbNextWs}, workspace, +1"
-      "${variables.kbToggleSpecialWs}, exec, caelestia toggle specialws"
-    ];
-
+  workspaceBinds = wsSwitch ++ wsMove;
   windowMouseBinds = [
     "Super, mouse:272, movewindow"
     "Super, mouse:273, resizewindow"
   ];
-
   windowBinds = [
-    "${variables.kbPinWindow}, pin"
-    "${variables.kbWindowFullscreen}, fullscreen"
-    "${variables.kbToggleWindowFloating}, togglefloating"
-    "${variables.kbCloseWindow}, killactive"
+    "Super, P, pin"
+    "Super, G, fullscreen"
+    "Super, W, togglefloating"
+    "Super, Q, killactive"
   ];
 
   apps = [
-    "${variables.kbSystemMonitor}, exec, caelestia toggle sysmon"
-    "${variables.kbMusic}, exec, caelestia toggle music"
-    "${variables.kbTerminal}, exec, ${variables.terminal}"
-    "${variables.kbBrowser}, exec, ${variables.browser}"
-    "${variables.kbEditor}, exec, ${variables.editor}"
-    "${variables.kbFileExplorer}, exec, ${variables.fileExplorer}"
-    "Super, I, exec, XDG_CURRENT_DESKTOP=gnome gnome-control-center"
+    "Ctrl+Shift, Escape, exec, ${ipc} systemMonitor toggle"
+    "Super, M, exec, caelestia toggle music"
+    "Super, T, exec, kitty"
+    "Super, F, exec, zen"
+    "Super, C, exec, zeditor"
+    "Super, E, exec, nautilus"
+    "Super, I, exec, ${ipc} settings toggle" # TODO: replace
   ];
 
   utilities = [
-    "Super, V, exec, pkill fuzzel || caelestia clipboard"
-    "Super, Period, exec, pkill fuzzel || caelestia emoji -p"
-    "Super, Print, exec, grim -g \"$(slurp)\" ~/.tmp.png && tesseract ~/.tmp.png - | wl-copy && rm ~/.tmp.png"
+    "Super, V, exec, ${ipc} launcher clipboard"
+    "Super, Period, exec, ${ipc} launcher emoji"
+    "Super, Print, exec, ${hyprshot} -o ~ -f .tmp.png; tesseract ~/.tmp.png - | wl-copy && rm ~/.tmp.png"
   ];
 in
 {
@@ -61,35 +45,19 @@ in
     exec = hyprctl dispatch submap global
     submap = global
 
-    bindi = Super, Super_L, global, caelestia:launcher
-    bindin = Super, catchall, global, caelestia:launcherInterrupt
-    bindin = Super, mouse:272, global, caelestia:launcherInterrupt
-    bindin = Super, mouse:273, global, caelestia:launcherInterrupt
-    bindin = Super, mouse:274, global, caelestia:launcherInterrupt
-    bindin = Super, mouse:275, global, caelestia:launcherInterrupt
-    bindin = Super, mouse:276, global, caelestia:launcherInterrupt
-    bindin = Super, mouse:277, global, caelestia:launcherInterrupt
-    bindin = Super, mouse_up, global, caelestia:launcherInterrupt
-    bindin = Super, mouse_down, global, caelestia:launcherInterrupt
+    bind = Super, Super_L, exec, ${ipc} launcher toggle
 
     # bindl (locked bindings)
-    bindl = ${variables.kbLock}, global, caelestia:lock
-    bindl = , XF86MonBrightnessUp, global, caelestia:brightnessUp
-    bindl = , XF86MonBrightnessDown, global, caelestia:brightnessDown
-    bindl = Ctrl+Super, Space, global, caelestia:mediaToggle
-    bindl = , XF86AudioPlay, global, caelestia:mediaToggle
-    bindl = , XF86AudioPause, global, caelestia:mediaToggle
-    bindl = Ctrl+Super, Equal, global, caelestia:mediaNext
-    bindl = , XF86AudioNext, global, caelestia:mediaNext
-    bindl = Ctrl+Super, Minus, global, caelestia:mediaPrev
-    bindl = , XF86AudioPrev, global, caelestia:mediaPrev
-    bindl = , XF86AudioStop, global, caelestia:mediaStop
-    bindl = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-    bindl = Super+Shift, M, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-    bindl = , XF86AudioRaiseVolume, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ ${toString variables.volumeStep}%+
-    bindl = , XF86AudioLowerVolume, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ 0; wpctl set-volume @DEFAULT_AUDIO_SINK@ ${toString variables.volumeStep}%-
-    bindl = , Print, global, caelestia:screenshotFreeze
-    bindl = Ctrl, Print, exec, caelestia record -s
+    bindl = Super, L, exec, ${ipc} lockScreen lock
+    bindl = , XF86MonBrightnessUp, exec, ${ipc} brightness increase
+    bindl = , XF86MonBrightnessDown, exec, ${ipc} brightness decrease
+    bindl = , XF86AudioPlay, exec, ${ipc} media playPause
+    bindl = , XF86AudioNext, exec, ${ipc} media next
+    bindl = , XF86AudioPrev, exec, ${ipc} media previous
+    bindl = , XF86AudioMute, exec, ${ipc} volume muteOutput
+    bindl = , XF86AudioRaiseVolume, exec, ${ipc} volume increase
+    bindl = , XF86AudioLowerVolume, exec, ${ipc} volume decrease
+    bindl = , Print, exec, ${hyprshot} -o ~/Pictures/Screenshots -- loupe
     bindl = Super, C, exec, hyprpicker -a
 
     # Regular bind entries - you'll need to expand these arrays manually

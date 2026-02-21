@@ -1,5 +1,4 @@
-let variables = import ./variables.nix;
-in {
+{
   input = {
     kb_layout = "us";
     numlock_by_default = false;
@@ -12,8 +11,8 @@ in {
 
     touchpad = {
       natural_scroll = true;
-      disable_while_typing = variables.touchpadDisableTyping;
-      scroll_factor = variables.touchpadScrollFactor;
+      disable_while_typing = true;
+      scroll_factor = 0.3;
       clickfinger_behavior = true;
     };
   };
@@ -23,7 +22,11 @@ in {
     sensitivity = 0.25;
   };
 
-  binds = { scroll_event_delay = 0; };
+  binds = {
+    scroll_event_delay = 0;
+  };
 
-  cursor = { hotspot_padding = 1; };
+  cursor = {
+    hotspot_padding = 1;
+  };
 }

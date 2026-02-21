@@ -1,7 +1,9 @@
 { pkgs, ... }:
 
-let variables = import ./variables.nix;
-in [
+let
+  variables = import ./variables.nix;
+in
+[
   # ############# Themes #############
   "QT_QPA_PLATFORMTHEME, qt6ct"
   "QT_WAYLAND_DISABLE_WINDOWDECORATION, 1"

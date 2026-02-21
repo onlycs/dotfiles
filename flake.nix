@@ -19,8 +19,8 @@
 
     hyprland.url = "github:hyprwm/Hyprland";
 
-    caelestia-shell = {
-      url = "github:caelestia-dots/shell";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -35,7 +35,14 @@
   };
 
   outputs =
-    inputs@{ nixpkgs, home-manager, vscode-server, lsfg-vk-flake, frc-nix, ... }:
+    inputs@{
+      nixpkgs,
+      home-manager,
+      vscode-server,
+      lsfg-vk-flake,
+      frc-nix,
+      ...
+    }:
     {
       nixosConfigurations = {
         theseus = nixpkgs.lib.nixosSystem {
@@ -46,30 +53,11 @@
             vscode-server.nixosModules.default
             lsfg-vk-flake.nixosModules.default
             (
-              { pkgs, ... }:
+              { ... }:
               {
                 nixpkgs.overlays = [
                   (import ./overlays)
                   frc-nix.overlays.default
-                  (final: prev: {
-                    # Create a fixed app2unit
-                    app2unit-fixed = prev.app2unit.overrideAttrs (oldAttrs: {
-                      nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ final.scdoc ];
-                    });
-
-                    # Create fixed caelestia-shell packages
-                    caelestia-shell-packages = inputs.caelestia-shell.packages.${prev.system} // {
-                      with-cli = inputs.caelestia-shell.packages.${prev.system}.with-cli.override {
-                        # Use the fixed app2unit by overriding the callPackage call
-                        app2unit = final.callPackage (inputs.caelestia-shell + "/nix/app2unit.nix") {
-                          pkgs = final.extend (_: _: { app2unit = final.app2unit-fixed; });
-                        };
-                      };
-                    };
-
-                    # Create with-cli using the fixed caelestia-shell
-                    caelestia-shell-with-cli = final.caelestia-shell-packages.with-cli;
-                  })
                 ];
               }
             )

@@ -1,7 +1,6 @@
-let
-  variables = import ./variables.nix;
-in {
-  rounding = variables.windowRounding;
+{
+  rounding = 10;
+  rounding_power = 2;
 
   blur = {
     enabled = true;
@@ -11,14 +10,15 @@ in {
     new_optimizations = true;
     popups = true;
     input_methods = true;
-    size = variables.blurSize;
-    passes = variables.blurPasses;
+    size = 3;
+    passes = 2;
+    vibrancy = 0.1696;
   };
 
   shadow = {
     enabled = true;
-    range = variables.shadowRange;
-    render_power = variables.shadowRenderPower;
-    color = variables.shadowColour;
+    range = 4;
+    render_power = 3;
+    color = "rgba(1a1a1aee)";
   };
 }

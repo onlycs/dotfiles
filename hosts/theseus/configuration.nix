@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}:
+{ pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -20,13 +15,15 @@
   networking.hostName = "theseus";
   networking.networkmanager.enable = true;
   networking.networkmanager.dns = "systemd-resolved";
+  networking.nameservers = [
+    "192.168.1.2#homelab"
+    "1.1.1.1#cloudflare"
+    "8.8.8.8#google"
+  ];
   networking.firewall.enable = false;
   services.resolved = {
     enable = true;
-    domains = [ "fios-router.home" ];
-    extraConfig = ''
-      DNS=192.168.1.2
-    '';
+    settings.Resolve.Domains = [ "fios-router.home" ];
   };
   networking.resolvconf.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
@@ -71,6 +68,7 @@
   services.fwupd.enable = true;
 
   # Enable CUPS to print documents
+  services.avahi.enable = true;
   services.printing = {
     enable = true;
     drivers = with pkgs; [ brlaser ];
@@ -93,6 +91,7 @@
 
   # Power
   services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
 
   # Flatpak
   services.flatpak.enable = true;
@@ -192,6 +191,9 @@
     nfs-utils
     polkit_gnome
     bitwarden-desktop
+
+    gpu-screen-recorder
+    gpu-screen-recorder-gtk
   ];
 
   environment.shells = with pkgs; [
