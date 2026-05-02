@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
     # System info
-    neofetch
+    fastfetch
 
     # Archives
     zip

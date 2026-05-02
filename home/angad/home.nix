@@ -56,6 +56,10 @@ in
       name = "Bibata-Modern-Classic";
       package = pkgs.bibata-cursors;
     };
+    gtk4.theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
     gtk4.extraConfig.Settings = ''
       gtk-application-prefer-dark-themes=1
     '';

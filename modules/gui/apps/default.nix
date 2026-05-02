@@ -14,7 +14,7 @@
     # Media
     pavucontrol
     mpv
-    tidal-hifi
+    # tidal-hifi
 
     # Graphics & Design
     gimp
@@ -37,19 +37,35 @@
     sushi
 
     # editor
-    jetbrains.idea
+    android-studio
     vscode
 
     # Internet
     qbittorrent
     kdePackages.kdenlive
 
-    helvum
+    crosspipe
     pwvucontrol
 
     choreo
     elastic-dashboard
 
     loupe
+
+    texlivePackages.tex-gyre
+
+    winboat
+
+    ffmpeg
+    wf-recorder
+    gnome-calculator
+    obs-studio
+    (google-antigravity.override { useFHS = false; })
+    kubectl
+    claude-code
+
+    uv
+
+    godot
   ];
 }

@@ -32,6 +32,18 @@
     };
 
     frc-nix.url = "github:frc4451/frc-nix";
+
+    antigravity-nix = {
+      url = "github:jacopone/antigravity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    headlamp.url = "github:jpowersdev/headlamp-nix";
+
+    claude-code = {
+      url = "github:sadjow/claude-code-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -41,6 +53,9 @@
       vscode-server,
       lsfg-vk-flake,
       frc-nix,
+      antigravity-nix,
+      claude-code,
+      headlamp,
       ...
     }:
     {
@@ -58,6 +73,9 @@
                 nixpkgs.overlays = [
                   (import ./overlays)
                   frc-nix.overlays.default
+                  antigravity-nix.overlays.default
+                  headlamp.overlays.default
+                  claude-code.overlays.default
                 ];
               }
             )

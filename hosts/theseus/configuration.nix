@@ -15,11 +15,11 @@
   networking.hostName = "theseus";
   networking.networkmanager.enable = true;
   networking.networkmanager.dns = "systemd-resolved";
-  networking.nameservers = [
-    "192.168.1.2#homelab"
-    "1.1.1.1#cloudflare"
-    "8.8.8.8#google"
-  ];
+  # networking.nameservers = [
+  #   "192.168.1.2#homelab"
+  #   "1.1.1.1#cloudflare"
+  #   "8.8.8.8#google"
+  # ];
   networking.firewall.enable = false;
   services.resolved = {
     enable = true;
@@ -28,10 +28,14 @@
   networking.resolvconf.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
+  nix.gc = {
+    automatic = true;
+    dates = [ "weekly" ];
+    options = "--delete-older-than 30d";
+  };
+
   # Time zone
   time.timeZone = "America/New_York";
-
-  # Internationalization
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Enable hardware graphics acceleration
@@ -46,6 +50,8 @@
     ];
   };
 
+  hardware.flipperzero.enable = true;
+
   # Enable bluetooth
   hardware.bluetooth = {
     enable = true;
@@ -56,6 +62,8 @@
       };
     };
   };
+  hardware.xpadneo.enable = true;
+  hardware.steam-hardware.enable = true;
   services.blueman.enable = true;
 
   # Enable fingerprint support
@@ -83,6 +91,18 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     wireplumber.enable = true;
+  };
+  services.pipewire.wireplumber.extraConfig."10-bluez-sink" = {
+    "monitor.bluez.properties" = {
+      "bluez5.roles" = [
+        "a2dp_sink"
+        "a2dp_source"
+        "hsp_hs"
+        "hsp_ag"
+        "hfp_hf"
+        "hfp_ag"
+      ];
+    };
   };
 
   # Enable fingerprint authentication for sudo and other services
@@ -170,6 +190,7 @@
 
   # Enable Docker
   virtualisation.docker.enable = true;
+  virtualisation.waydroid.enable = true;
 
   # Remote access
   services.openssh.enable = true;
@@ -206,8 +227,17 @@
     ui.enable = true;
   };
 
-  # install kde plasma (just the de, not all the apps)
-  services.desktopManager.plasma6.enable = true;
+  services.logind = {
+    settings = {
+      Login = {
+        HandleLidSwitch = "suspend";
+        HandleLidSwitchExternalPower = "suspend";
+        HandleLidSwitchDocked = "ignore";
+        IdleAction = "suspend";
+        IdleActionSec = "15min";
+      };
+    };
+  };
 
   security.wrappers.gsr-kms-server = {
     owner = "root";

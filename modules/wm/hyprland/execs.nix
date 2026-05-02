@@ -29,5 +29,6 @@ in
     # Start shell
     # "caelestia shell -d"
     "noctalia-shell"
+    "bitwarden &"
   ];
 }

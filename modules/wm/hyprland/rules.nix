@@ -68,6 +68,15 @@ in
       size = "70% 80%";
       center = "on";
     }
+    {
+      name = "pin-bottom-right";
+      "match:class" = antiregex "org.gnome.Calculator";
+
+      float = "on";
+      size = "30% 10%";
+      move = "100%-w-2% 100%-h-2%";
+      pin = "on";
+    }
 
     # # Picture in picture
     # "move 100%-w-2% 100%-w-3%, title:Picture(-| )in(-| )[Pp]icture"

@@ -27,7 +27,7 @@ let
     "Ctrl+Shift, Escape, exec, ${ipc} systemMonitor toggle"
     "Super, M, exec, caelestia toggle music"
     "Super, T, exec, kitty"
-    "Super, F, exec, zen"
+    "Super, F, exec, zen-beta"
     "Super, C, exec, zeditor"
     "Super, E, exec, nautilus"
     "Super, I, exec, ${ipc} settings toggle" # TODO: replace
