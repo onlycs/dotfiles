@@ -1,17 +1,17 @@
 {
   "settingsVersion": 59,
   "bar": {
-    "barType": "framed",
+    "barType": "floating",
     "position": "top",
     "monitors": [],
     "density": "comfortable",
     "showOutline": false,
-    "showCapsule": true,
+    "showCapsule": false,
     "capsuleOpacity": 1,
     "capsuleColorKey": "none",
     "widgetSpacing": 6,
-    "contentPadding": 2,
-    "fontScale": 1,
+    "contentPadding": 1,
+    "fontScale": 0.9,
     "enableExclusionZoneInset": true,
     "backgroundOpacity": 0.93,
     "useSeparateOpacity": false,
@@ -72,11 +72,17 @@
           "labelMode": "index",
           "occupiedColor": "secondary",
           "pillSize": 0.6,
-          "showApplications": false,
-          "showApplicationsHover": false,
+          "showApplications": true,
+          "showApplicationsHover": true,
           "showBadge": true,
           "showLabelsOnlyWhenOccupied": true,
           "unfocusedIconsOpacity": 1
+        },
+        {
+          "id": "plugin:noctalia-calculator"
+        },
+        {
+          "id": "plugin:todo"
         }
       ],
       "center": [
@@ -139,21 +145,21 @@
           "unreadBadgeColor": "primary"
         },
         {
+          "id": "plugin:usb-drive-manager"
+        },
+        {
           "displayMode": "onhover",
           "iconColor": "none",
           "id": "Bluetooth",
           "textColor": "none"
         },
         {
-          "displayMode": "onhover",
-          "iconColor": "none",
-          "id": "Network",
-          "textColor": "none"
+          "id": "plugin:network-manager-vpn"
         },
         {
           "displayMode": "onhover",
           "iconColor": "none",
-          "id": "VPN",
+          "id": "Network",
           "textColor": "none"
         },
         {
@@ -199,14 +205,14 @@
   "general": {
     "avatarImage": "/home/angad/Pictures/Profiles/v2/profile.jpg",
     "dimmerOpacity": 0.3,
-    "showScreenCorners": false,
-    "forceBlackScreenCorners": false,
+    "showScreenCorners": true,
+    "forceBlackScreenCorners": true,
     "scaleRatio": 1,
-    "radiusRatio": 1,
+    "radiusRatio": 0.25,
     "iRadiusRatio": 1,
     "boxRadiusRatio": 1,
-    "screenRadiusRatio": 1,
-    "animationSpeed": 1,
+    "screenRadiusRatio": 0.25,
+    "animationSpeed": 1.25,
     "animationDisabled": false,
     "compactLockScreen": false,
     "lockScreenAnimations": true,
@@ -246,7 +252,7 @@
     "smoothScrollEnabled": true
   },
   "ui": {
-    "fontDefault": "JetBrainsMono Nerd Font",
+    "fontDefault": "HelveticaNeueLT Std Lt",
     "fontFixed": "JetBrainsMono Nerd Font",
     "fontDefaultScale": 1,
     "fontFixedScale": 1,
@@ -260,7 +266,7 @@
     "settingsPanelSideBarCardStyle": false
   },
   "location": {
-    "name": "Albany",
+    "name": "Latham",
     "weatherEnabled": true,
     "weatherShowEffects": true,
     "weatherTaliaMascotAlways": false,
@@ -302,7 +308,7 @@
     "setWallpaperOnAllMonitors": true,
     "linkLightAndDarkWallpapers": true,
     "fillMode": "crop",
-    "fillColor": "#000000",
+    "fillColor": "#1d201e",
     "useSolidColor": false,
     "solidColor": "#1a1a2e",
     "automationEnabled": false,
@@ -602,13 +608,13 @@
   },
   "audio": {
     "volumeStep": 5,
-    "volumeOverdrive": false,
-    "spectrumFrameRate": 30,
+    "volumeOverdrive": true,
+    "spectrumFrameRate": 60,
     "visualizerType": "linear",
     "spectrumMirrored": true,
     "mprisBlacklist": [],
     "preferredPlayer": "",
-    "volumeFeedback": false,
+    "volumeFeedback": true,
     "volumeFeedbackSoundFile": ""
   },
   "brightness": {
@@ -636,8 +642,8 @@
     "enabled": false,
     "forced": false,
     "autoSchedule": true,
-    "nightTemp": "4000",
-    "dayTemp": "6500",
+    "nightTemp": "1731",
+    "dayTemp": "5988",
     "manualSunrise": "06:30",
     "manualSunset": "18:30"
   },
@@ -672,10 +678,50 @@
     "customCommands": "[]"
   },
   "desktopWidgets": {
-    "enabled": false,
+    "enabled": true,
     "overviewEnabled": true,
     "gridSnap": false,
     "gridSnapScale": false,
-    "monitorWidgets": []
+    "monitorWidgets": [
+      {
+        "name": "eDP-2",
+        "widgets": [
+          {
+            "clockColor": "none",
+            "clockStyle": "digital",
+            "customFont": "HelveticaNeueLT Std Lt Ext",
+            "format": "hh:mm AP\\nMMMM dd, yyyy",
+            "id": "Clock",
+            "roundedCorners": true,
+            "scale": 1.8134401550161567,
+            "showBackground": true,
+            "useCustomFont": false,
+            "x": 32,
+            "y": 64
+          },
+          {
+            "id": "Weather",
+            "roundedCorners": true,
+            "scale": 1.4082473336908738,
+            "showBackground": true,
+            "x": 320,
+            "y": 64
+          },
+          {
+            "hideMode": "hidden",
+            "id": "MediaPlayer",
+            "roundedCorners": true,
+            "scale": 0.8720082202334646,
+            "showAlbumArt": true,
+            "showBackground": true,
+            "showButtons": true,
+            "showVisualizer": true,
+            "visualizerType": "mirrored",
+            "x": 320,
+            "y": 190
+          }
+        ]
+      }
+    ]
   }
 }
