@@ -1,7 +1,6 @@
 { ... }:
 let
   material3 = {
-
     type = "dark";
     primary_paletteKeyColor = "#44835d";
     secondary_paletteKeyColor = "#677c6c";

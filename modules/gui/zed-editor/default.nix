@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     zed-editor
+    nerd-fonts.jetbrains-mono
   ];
 
   programs.zed-editor = {
@@ -23,6 +24,12 @@
       lsp = {
         rust-analyzer.binary.path_lookup = true;
         nix.binary.path_lookup = true;
+      };
+
+      theme = {
+        mode = "system";
+        dark = "JetBrains Dark";
+        light = "JetBrains Light";
       };
     };
   };

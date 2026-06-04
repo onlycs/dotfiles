@@ -4,7 +4,10 @@
 }:
 {
   home.packages = with pkgs; [
+    # video games
     prismlauncher
+
+    # desktop
     quickshell
 
     # Communication
@@ -14,16 +17,23 @@
     # Media
     pavucontrol
     mpv
-    # tidal-hifi
+    qbz
+    crosspipe
+    pwvucontrol
+    loupe
+    ffmpeg
+    wf-recorder
 
     # Graphics & Design
     gimp
     inkscape
+    kdePackages.kdenlive
+    obs-studio
 
     # Productivity
     libreoffice
     obsidian
-    proton-pass
+    gnome-calculator
 
     # System utilities
     mission-center
@@ -36,36 +46,26 @@
     nautilus-open-any-terminal
     sushi
 
-    # editor
+    # code
     android-studio
     vscode
+    (google-antigravity.override { useFHS = false; })
+    claude-code
+    godot
 
     # Internet
     qbittorrent
-    kdePackages.kdenlive
 
-    crosspipe
-    pwvucontrol
-
+    # FRC
     choreo
     elastic-dashboard
 
-    loupe
-
+    # what even the hell
     texlivePackages.tex-gyre
-
     winboat
 
-    ffmpeg
-    wf-recorder
-    gnome-calculator
-    obs-studio
-    (google-antigravity.override { useFHS = false; })
-    kubectl
-    claude-code
-
-    uv
-
-    godot
+    gnome-contacts
+    gnome-calendar
+    thunderbird-bin
   ];
 }

@@ -12,11 +12,11 @@
     "widgetSpacing": 6,
     "contentPadding": 1,
     "fontScale": 0.9,
-    "enableExclusionZoneInset": true,
+    "enableExclusionZoneInset": false,
     "backgroundOpacity": 0.93,
     "useSeparateOpacity": false,
-    "marginVertical": 4,
-    "marginHorizontal": 4,
+    "marginVertical": 6,
+    "marginHorizontal": 6,
     "frameThickness": 8,
     "frameRadius": 12,
     "outerCorners": true,
@@ -125,6 +125,47 @@
           "pinned": ["Tidal-hifi", "Easy Effects"]
         },
         {
+          "hideWhenZero": false,
+          "hideWhenZeroUnread": false,
+          "iconColor": "none",
+          "id": "NotificationHistory",
+          "showUnreadBadge": true,
+          "unreadBadgeColor": "primary"
+        },
+        {
+          "defaultSettings": {
+            "autoMount": false,
+            "fileBrowser": "yazi",
+            "hideWhenEmpty": false,
+            "iconColor": "none",
+            "showBadge": false,
+            "showNotifications": true,
+            "terminalCommand": "kitty"
+          },
+          "id": "plugin:usb-drive-manager"
+        },
+        {
+          "displayMode": "onhover",
+          "iconColor": "none",
+          "id": "Network",
+          "textColor": "none"
+        },
+        {
+          "defaultSettings": {
+            "connectedColor": "primary",
+            "disableToastNotifications": false,
+            "disconnectedColor": "none",
+            "displayMode": "onhover"
+          },
+          "id": "plugin:network-manager-vpn"
+        },
+        {
+          "displayMode": "onhover",
+          "iconColor": "none",
+          "id": "Bluetooth",
+          "textColor": "none"
+        },
+        {
           "defaultSettings": {
             "activeColor": "primary",
             "enableToast": true,
@@ -135,32 +176,6 @@
             "removeMargins": false
           },
           "id": "plugin:privacy-indicator"
-        },
-        {
-          "hideWhenZero": false,
-          "hideWhenZeroUnread": false,
-          "iconColor": "none",
-          "id": "NotificationHistory",
-          "showUnreadBadge": true,
-          "unreadBadgeColor": "primary"
-        },
-        {
-          "id": "plugin:usb-drive-manager"
-        },
-        {
-          "displayMode": "onhover",
-          "iconColor": "none",
-          "id": "Bluetooth",
-          "textColor": "none"
-        },
-        {
-          "id": "plugin:network-manager-vpn"
-        },
-        {
-          "displayMode": "onhover",
-          "iconColor": "none",
-          "id": "Network",
-          "textColor": "none"
         },
         {
           "deviceNativePath": "__default__",
@@ -183,6 +198,7 @@
         {
           "colorizeDistroLogo": false,
           "colorizeSystemIcon": "tertiary",
+          "colorizeSystemText": "none",
           "customIconPath": "",
           "enableColorization": true,
           "icon": "adjustments-horizontal",
@@ -220,7 +236,7 @@
     "showSessionButtonsOnLockScreen": true,
     "showHibernateOnLockScreen": true,
     "enableLockScreenMediaControls": false,
-    "enableShadows": true,
+    "enableShadows": false,
     "enableBlurBehind": true,
     "shadowDirection": "bottom_right",
     "shadowOffsetX": 2,
@@ -252,7 +268,7 @@
     "smoothScrollEnabled": true
   },
   "ui": {
-    "fontDefault": "HelveticaNeueLT Std Lt",
+    "fontDefault": "DejaVu Sans",
     "fontFixed": "JetBrainsMono Nerd Font",
     "fontDefaultScale": 1,
     "fontFixedScale": 1,
@@ -266,7 +282,7 @@
     "settingsPanelSideBarCardStyle": false
   },
   "location": {
-    "name": "Latham",
+    "name": "Albany",
     "weatherEnabled": true,
     "weatherShowEffects": true,
     "weatherTaliaMascotAlways": false,
@@ -635,8 +651,45 @@
     "syncGsettings": true
   },
   "templates": {
-    "activeTemplates": [],
-    "enableUserTheming": false
+    "activeTemplates": [
+      {
+        "enabled": true,
+        "id": "cava"
+      },
+      {
+        "enabled": true,
+        "id": "zenBrowser"
+      },
+      {
+        "enabled": true,
+        "id": "hyprland"
+      },
+      {
+        "enabled": true,
+        "id": "zed"
+      },
+      {
+        "enabled": true,
+        "id": "steam"
+      },
+      {
+        "enabled": true,
+        "id": "gtk"
+      },
+      {
+        "enabled": true,
+        "id": "hyprtoolkit"
+      },
+      {
+        "enabled": true,
+        "id": "qt"
+      },
+      {
+        "enabled": true,
+        "id": "kitty"
+      }
+    ],
+    "enableUserTheming": true
   },
   "nightLight": {
     "enabled": false,

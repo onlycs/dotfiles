@@ -2,7 +2,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/wm/hyprland
   ];
 
   # Bootloader
@@ -28,12 +27,6 @@
   networking.resolvconf.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  nix.gc = {
-    automatic = true;
-    dates = [ "weekly" ];
-    options = "--delete-older-than 30d";
-  };
-
   # Time zone
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -48,6 +41,7 @@
       vulkan-validation-layers
       mesa
     ];
+    enable32Bit = true;
   };
 
   hardware.flipperzero.enable = true;
@@ -76,10 +70,33 @@
   services.fwupd.enable = true;
 
   # Enable CUPS to print documents
-  services.avahi.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+  };
   services.printing = {
     enable = true;
-    drivers = with pkgs; [ brlaser ];
+    drivers = with pkgs; [
+      brlaser
+      gutenprint
+      gutenprintBin
+    ];
+  };
+
+  xdg.portal = {
+    enable = true;
+
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
+
+    config = {
+      common.default = [ "gtk" ];
+      hyprland.default = [
+        "hyprland"
+        "gtk"
+      ];
+    };
   };
 
   # Enable sound with pipewire
@@ -125,19 +142,24 @@
       "wheel"
       "docker"
       "input"
+      "adbusers"
     ];
     shell = pkgs.nushell;
   };
 
   programs.nix-ld.enable = true;
-  programs.hyprland.enable = true;
 
   # Gnome etc
   services.gnome.gnome-keyring.enable = true;
+  services.gnome.gnome-settings-daemon.enable = true;
+  services.gnome.gnome-online-accounts.enable = true;
+  services.gnome.evolution-data-server.enable = true;
   programs.seahorse.enable = true;
   programs.dconf.enable = true;
   services.gvfs.enable = true;
-  services.udev.packages = with pkgs; [ gnome-settings-daemon ];
+  services.udev.packages = with pkgs; [
+    gnome-settings-daemon
+  ];
 
   # Enable Steam
   programs.steam = {
@@ -149,6 +171,9 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-39.8.10"
+  ];
 
   # Enable Flake Feature
   nix = {
@@ -167,12 +192,38 @@
       # Keep build outputs for faster rebuilds
       keep-outputs = true;
       keep-derivations = true;
+
+      substituters = [
+        "https://hyprland.cachix.org"
+        "https://quickshell.cachix.org"
+        "https://noctalia.cachix.org"
+      ];
+      trusted-public-keys = [
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "quickshell.cachix.org-1:vBm3s5tZThc5KDLj6zhHVCMp8wX/AZJwle9wqdi81ts="
+        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      ];
     };
 
     optimise = {
       automatic = true;
       dates = [ "weekly" ];
     };
+  };
+
+  services.fast-nix-gc = {
+    enable = true;
+    automatic = true;
+    dates = "weekly";
+    deleteOlderThan = "30d";
+    ensureFree = "50G";
+    keepRecent = "1d";
+  };
+
+  services.fast-nix-optimise = {
+    enable = true;
+    automatic = true;
+    dates = "weekly";
   };
 
   boot.loader.systemd-boot.configurationLimit = 3;
@@ -194,7 +245,7 @@
 
   # Remote access
   services.openssh.enable = true;
-  networking.wg-quick.interfaces.wg0.configFile = "/home/angad/.dotfiles/angad.theseus.conf";
+  # networking.wg-quick.interfaces.wg0.configFile = "/home/angad/.dotfiles/angad.theseus.conf";
   services.vscode-server.enable = true;
 
   # System packages
@@ -208,6 +259,8 @@
     vulkan-headers
     vulkan-validation-layers
     mesa
+    libva
+    libva-utils
 
     nfs-utils
     polkit_gnome
@@ -215,6 +268,8 @@
 
     gpu-screen-recorder
     gpu-screen-recorder-gtk
+
+    networkmanagerapplet
   ];
 
   environment.shells = with pkgs; [

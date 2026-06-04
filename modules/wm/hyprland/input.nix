@@ -17,11 +17,6 @@
     };
   };
 
-  device = {
-    name = "type:touchpad";
-    sensitivity = 0.25;
-  };
-
   binds = {
     scroll_event_delay = 0;
   };

@@ -1,25 +1,24 @@
 let
-  # exact = s: "^${s}\$";
-  antiregex = s: builtins.replaceStrings [ "." ] [ "\\." ] s;
+  escdot = s: builtins.replaceStrings [ "." ] [ "\\." ] s;
   regexconcat = strs: builtins.concatStringsSep "|" strs;
 
   floatClass = regexconcat [
-    (antiregex "org.gnome.FileRoller")
+    (escdot "org.gnome.FileRoller")
     "file-roller"
     "blueman-manager"
-    (antiregex "com.github.GradienceTeam.Gradience")
+    (escdot "com.github.GradienceTeam.Gradience")
     "system-config-printer"
-    (antiregex "org.quickshell")
-    (antiregex "org.gnome.Settings")
-    (antiregex "org.pulseaudio.pavucontrol")
-    (antiregex "com.saivert.pwvucontrol")
+    (escdot "org.quickshell")
+    (escdot "org.gnome.Settings")
+    (escdot "org.pulseaudio.pavucontrol")
+    (escdot "com.saivert.pwvucontrol")
   ];
 
   floatResize = regexconcat [
-    (antiregex "org.gnome.Settings")
-    (antiregex "org.pulseaudio.pavucontrol")
-    (antiregex "com.saivert.pwvucontrol")
-    (antiregex "org.gnome.Loupe")
+    (escdot "org.gnome.Settings")
+    (escdot "org.pulseaudio.pavucontrol")
+    (escdot "com.saivert.pwvucontrol")
+    (escdot "org.gnome.Loupe")
     "Bitwarden"
   ];
 
@@ -35,47 +34,67 @@ let
   ];
 in
 {
-  # ######## Window rules ########
-  windowrule = [
-    # "match:fullscreen false, opacity ${toString variables.windowOpacity} override"
+  window_rule = [
     {
       name = "center-floating";
-      "match:float" = true;
-      "match:xwayland" = false;
+      match = {
+        float = true;
+        xwayland = false;
+      };
 
-      center = "on";
+      center = true;
     }
     {
       name = "floating";
-      "match:class" = floatClass;
+      match = {
+        class = floatClass;
+      };
 
-      float = "on";
-      center = "on";
+      float = true;
+      center = true;
     }
     {
       name = "resize";
-      "match:class" = floatResize;
+      match = {
+        class = floatResize;
+      };
 
-      float = "on";
-      size = "70% 80%";
-      center = "on";
+      float = true;
+      size = [
+        "70%"
+        "80%"
+      ];
+      center = true;
     }
     {
       name = "dialogs";
-      "match:title" = titleResize;
+      match = {
+        title = titleResize;
+      };
 
-      float = "on";
-      size = "70% 80%";
-      center = "on";
+      float = true;
+      size = [
+        "70%"
+        "80%"
+      ];
+      center = true;
     }
     {
       name = "pin-bottom-right";
-      "match:class" = antiregex "org.gnome.Calculator";
+      match = {
+        class = escdot "org.gnome.Calculator";
+      };
 
-      float = "on";
-      size = "30% 10%";
-      move = "100%-w-2% 100%-h-2%";
-      pin = "on";
+      float = true;
+      size = [
+        "30%"
+        "10%"
+      ];
+      move = [
+        "(monitor_w-window_w-6)"
+        "(monitor_h-window_h-6)"
+      ];
+      pin = true;
     }
 
     # # Picture in picture
@@ -92,11 +111,14 @@ in
   ];
 
   # ######## Layer rules ########
-  layerrule = [
+  layer_rule = [
     # "animation fade, hyprpicker"
     {
       name = "noctalia";
-      "match:namespace" = "noctalia-background-.*$";
+      match = {
+        namespace = "noctalia-background-.*$";
+      };
+
       ignore_alpha = 0.5;
       blur = true;
       blur_popups = true;

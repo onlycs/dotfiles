@@ -4,7 +4,6 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:
@@ -61,4 +60,9 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  environment.variables = {
+    MOZ_DRM_DEVICE = "/dev/dri/renderD128";
+    VAAPI_DEVICE = "/dev/dri/renderD128";
+  };
 }

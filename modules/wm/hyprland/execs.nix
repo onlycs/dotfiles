@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   variables = import ./variables.nix;
-in
-{
-  exec-once = [
+  lua = import ./lua.nix { inherit lib; };
+
+  commands = [
     # Keyring and auth
     "gnome-keyring-daemon --start --components=secrets"
     "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
@@ -29,6 +29,16 @@ in
     # Start shell
     # "caelestia shell -d"
     "noctalia-shell"
-    "bitwarden &"
+    "bitwarden 2>&1 > /home/angad/bw.log & disown"
+  ];
+
+  execs = lib.strings.join "\n" (map (cmd: ''hl.exec_cmd("${cmd}")'') commands);
+in
+{
+  on = lua.args [
+    "hyprland.start"
+    (lua.inline "function()
+      ${execs}
+    end")
   ];
 }

@@ -1,34 +1,24 @@
 {
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-
-{
   programs.ssh = {
     enable = true;
-
-    matchBlocks = {
-      "launchpad" = {
-        hostname = "launchpad.angad.page";
-        user = "angad";
-        identityFile = "~/.ssh/id_ed25519";
-        identitiesOnly = true;
+    settings = {
+      "Host launchpad" = {
+        HostName = "launchpad.angad.page";
+        User = "angad";
+        IdentityFile = "~/.ssh/id_ed25519";
+        IdentitiesOnly = true;
       };
-
-      "jensanity" = {
-        hostname = "jensanity";
-        user = "angad";
-        proxyJump = "launchpad";
-        identityFile = "~/.ssh/id_ed25519";
+      "Host jensanity" = {
+        HostName = "jensanity";
+        User = "angad";
+        ProxyJump = "launchpad";
+        IdentityFile = "~/.ssh/id_ed25519";
       };
-
-      "databahn" = {
-        hostname = "databahn";
-        user = "angad";
-        proxyJump = "launchpad";
-        identityFile = "~/.ssh/id_ed25519";
+      "Host databahn" = {
+        HostName = "databahn";
+        User = "angad";
+        ProxyJump = "launchpad";
+        IdentityFile = "~/.ssh/id_ed25519";
       };
     };
   };

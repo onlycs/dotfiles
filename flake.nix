@@ -44,6 +44,8 @@
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    fast-nix-gc.url = "github:Mic92/fast-nix-gc";
   };
 
   outputs =
@@ -56,6 +58,7 @@
       antigravity-nix,
       claude-code,
       headlamp,
+      fast-nix-gc,
       ...
     }:
     {
@@ -67,11 +70,11 @@
             inputs.nixos-hardware.nixosModules.framework-16-7040-amd
             vscode-server.nixosModules.default
             lsfg-vk-flake.nixosModules.default
+            fast-nix-gc.nixosModules.default
             (
               { ... }:
               {
                 nixpkgs.overlays = [
-                  (import ./overlays)
                   frc-nix.overlays.default
                   antigravity-nix.overlays.default
                   headlamp.overlays.default

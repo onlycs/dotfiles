@@ -18,6 +18,7 @@
     # Networking tools
     dnsutils
     aria2
+    inetutils
 
     # Misc
     cmatrix
@@ -50,10 +51,16 @@
     nodejs
     qmk
     qmk-udev-rules
+    uv
+    virtualenv
+    kubectl
 
+    # framework
     framework-tool
     framework-tool-tui
     fw-fanctrl
     fw-ectool
+
+    android-tools
   ];
 }
