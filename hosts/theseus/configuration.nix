@@ -222,17 +222,6 @@
 
   boot.loader.systemd-boot.configurationLimit = 3;
 
-  systemd.services.fw-fanctrl = {
-    enable = true;
-    description = "Framework Laptop Fan Control";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.fw-fanctrl}/bin/fw-fanctrl run";
-      Restart = "on-failure";
-    };
-  };
-
   # Enable Docker
   virtualisation.docker.enable = true;
   virtualisation.waydroid.enable = true;

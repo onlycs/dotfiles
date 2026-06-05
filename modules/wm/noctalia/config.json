@@ -268,7 +268,7 @@
     "smoothScrollEnabled": true
   },
   "ui": {
-    "fontDefault": "DejaVu Sans",
+    "fontDefault": "Inter Display Light",
     "fontFixed": "JetBrainsMono Nerd Font",
     "fontDefaultScale": 1,
     "fontFixedScale": 1,

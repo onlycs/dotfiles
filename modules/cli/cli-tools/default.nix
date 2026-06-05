@@ -59,7 +59,6 @@
     # framework
     framework-tool
     framework-tool-tui
-    fw-fanctrl
     fw-ectool
 
     sbctl

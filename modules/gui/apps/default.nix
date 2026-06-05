@@ -13,6 +13,8 @@
     # Communication
     slack
     signal-desktop
+    gnome-contacts
+    thunderbird-bin
 
     # Media
     pavucontrol
@@ -40,6 +42,7 @@
     gnome-disk-utility
     gnome-text-editor
     gnome-control-center
+    gcr
 
     # File management
     nautilus
@@ -52,6 +55,7 @@
     (google-antigravity.override { useFHS = false; })
     claude-code
     godot
+    winboat
 
     # Internet
     qbittorrent
@@ -60,12 +64,10 @@
     choreo
     elastic-dashboard
 
-    # what even the hell
+    # font
     texlivePackages.tex-gyre
-    winboat
+    inter
 
-    gnome-contacts
-    gnome-calendar
-    thunderbird-bin
+    pinentry-qt
   ];
 }

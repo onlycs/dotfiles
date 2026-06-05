@@ -7,7 +7,12 @@
   modulesPath,
   ...
 }:
-
+let
+  speedpt = temp: speed: {
+    temp = temp;
+    speed = speed;
+  };
+in
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -60,6 +65,39 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  hardware.fw-fanctrl = {
+    enable = true;
+    config = {
+      strategies = {
+        silent = {
+          fanSpeedUpdateFrequency = 5;
+          movingAverageInterval = 40;
+          speedCurve = [
+            (speedpt 0 15)
+            (speedpt 40 15)
+            (speedpt 60 30)
+            (speedpt 70 50)
+            (speedpt 75 50)
+            (speedpt 85 50)
+          ];
+        };
+        agile = {
+          fanSpeedUpdateFrequency = 3;
+          movingAverageInterval = 15;
+          speedCurve = [
+            (speedpt 0 15)
+            (speedpt 40 15)
+            (speedpt 60 30)
+            (speedpt 70 40)
+            (speedpt 75 80)
+            (speedpt 85 100)
+          ];
+        };
+      };
+      defaultStrategy = "agile";
+    };
+  };
 
   environment.variables = {
     MOZ_DRM_DEVICE = "/dev/dri/renderD128";
