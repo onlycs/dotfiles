@@ -85,6 +85,7 @@
             ./hosts/theseus/configuration.nix
             home-manager.nixosModules.home-manager
             {
+              nix.optimise.automatic = false;
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = { inherit inputs; };
