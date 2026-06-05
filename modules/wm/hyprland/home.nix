@@ -5,7 +5,7 @@
   ...
 }:
 let
-  animations = import ./animations.nix;
+  animations = import ./animations.nix { inherit lib; };
   binds = import ./binds.nix { inherit lib; };
   decoration = import ./decoration.nix;
   env = import ./env.nix { inherit pkgs lib; };
@@ -35,6 +35,7 @@ in
 
     systemd.variables = [ "--all" ];
 
+    extraConfig = ''dofile(os.getenv("HOME") .. "/.config/hypr/noctalia/noctalia-colors.lua")'';
     settings = {
       monitor = [
         {
