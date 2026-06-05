@@ -54,6 +54,7 @@
     uv
     virtualenv
     kubectl
+    android-tools
 
     # framework
     framework-tool
@@ -61,6 +62,6 @@
     fw-fanctrl
     fw-ectool
 
-    android-tools
+    sbctl
   ];
 }

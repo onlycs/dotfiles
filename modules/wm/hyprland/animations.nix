@@ -15,90 +15,103 @@ let
       ]
     ];
   };
+
+  curve =
+    name: a: b: c: d:
+    lua.args [
+      name
+      (bezier a b c d)
+    ];
 in
 {
   curve = [
-    (lua.args [
-      "emphasizedAccel"
-      (bezier 0.55 0 0.85 0.55)
-    ])
-    (lua.args [
-      "emphasizedDecel"
-      (bezier 0 0.45 0.55 1)
-    ])
-    (lua.args [
-      "standard"
-      (bezier 0.2 0 0 0.1)
-    ])
+    (curve "linear" 0 0 1 1)
+    (curve "md3_standard" 0.2 0 0 1)
+    (curve "md3_decel" 0.05 0.7 0.1 1)
+    (curve "md3_accel" 0.3 0 0.8 0.15)
+    (curve "overshot" 0.05 0.9 0.1 1.1)
+    (curve "crazyshot" 0.1 1.5 0.76 0.92)
+    (curve "hyprnostretch" 0.05 0.9 0.1 1.0)
+    (curve "menu_decel" 0.1 1 0 1)
+    (curve "menu_accel" 0.38 0.04 1 0.07)
+    (curve "easeInOutCirc" 0.85 0 0.15 1)
+    (curve "easeOutCirc" 0 0.55 0.45 1)
+    (curve "easeOutExpo" 0.16 1 0.3 1)
+    (curve "softAcDecel" 0.26 0.26 0.15 1)
+    (curve "md2" 0.4 0 0.2 1)
   ];
   animation = [
     {
-      leaf = "layersIn";
+      leaf = "windows";
       enabled = true;
       speed = 3;
-      bezier = "emphasizedDecel";
+      bezier = "md3_decel";
+      style = "popin 60%";
     }
-    {
-      leaf = "layersOut";
-      enabled = true;
-      speed = 2.5;
-      bezier = "emphasizedAccel";
-    }
-    {
-      leaf = "fadeLayers";
-      enabled = true;
-      speed = 3;
-      bezier = "standard";
-    }
-
     {
       leaf = "windowsIn";
       enabled = true;
       speed = 3;
-      bezier = "emphasizedDecel";
+      bezier = "md3_decel";
+      style = "popin 60%";
     }
     {
       leaf = "windowsOut";
       enabled = true;
-      speed = 2;
-      bezier = "emphasizedAccel";
+      speed = 3;
+      bezier = "md3_accel";
+      style = "popin 60%";
     }
     {
-      leaf = "windowsMove";
+      leaf = "border";
       enabled = true;
-      speed = 3;
-      bezier = "standard";
+      speed = 10;
+      bezier = "default";
     }
-    {
-      leaf = "workspaces";
-      enabled = true;
-      speed = 3;
-      bezier = "standard";
-    }
-
     {
       leaf = "fade";
       enabled = true;
       speed = 3;
-      bezier = "standard";
+      bezier = "md3_decel";
     }
     {
-      leaf = "fadeDim";
+      leaf = "layersIn";
       enabled = true;
       speed = 3;
-      bezier = "standard";
+      bezier = "menu_decel";
+      style = "slide";
     }
     {
-      leaf = "border";
+      leaf = "layersOut";
       enabled = true;
-      speed = 3;
-      bezier = "standard";
+      speed = 1.6;
+      bezier = "menu_accel";
     }
     {
-      leaf = "border";
+      leaf = "fadeLayersIn";
+      enabled = true;
+      speed = 2;
+      bezier = "menu_decel";
+    }
+    {
+      leaf = "fadeLayersOut";
+      enabled = true;
+      speed = 4.5;
+      bezier = "menu_accel";
+    }
+    {
+      leaf = "workspaces";
+      enabled = true;
+      speed = 3.5;
+      bezier = "menu_decel";
+      style = "slide";
+    }
+    {
+      leaf = "specialWorkspace";
       enabled = true;
       speed = 3;
-      bezier = "standard";
+      bezier = "md3_decel";
+      style = "slidevert";
     }
   ];
 }

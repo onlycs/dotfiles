@@ -46,6 +46,11 @@
     };
 
     fast-nix-gc.url = "github:Mic92/fast-nix-gc";
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -59,6 +64,7 @@
       claude-code,
       headlamp,
       fast-nix-gc,
+      lanzaboote,
       ...
     }:
     {
@@ -71,6 +77,18 @@
             vscode-server.nixosModules.default
             lsfg-vk-flake.nixosModules.default
             fast-nix-gc.nixosModules.default
+            lanzaboote.nixosModules.lanzaboote
+            (
+              { pkgs, lib, ... }:
+              {
+                environment.systemPackages = with pkgs; [ sbctl ];
+                boot.loader.systemd-boot.enable = lib.mkForce false;
+                boot.lanzaboote = {
+                  enable = true;
+                  pkiBundle = "/var/lib/sbctl";
+                };
+              }
+            )
             (
               { ... }:
               {
